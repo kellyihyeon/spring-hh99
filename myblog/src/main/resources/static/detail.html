@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="테스트 페이지" content="width=device-width, initial-scale=1.0">
+    <title>글 상세조회 페이지</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+
+    </style>
+    <script>
+        $(document).ready(function() {
+            showOneList(id);
+        })
+
+        // 제목 클릭해서 왔을 떄 상세 게시글 보여주기
+        function showOneList(id){
+            // id에 맞는 데이터 뽑기
+            let title = $(`#${id}-title`).text();
+            let username = $(`#${id}-username`).text();
+            let createdAt = $(`#${id}-time`).text();
+            let contents = $(`#${id}-contents`).text();
+
+            let data = {'title': title, 'username': username, 'createdAt':createdAt, 'contents': contents};
+
+
+            $.ajax({
+                type: 'POST',
+                url: `/api/boards/${id}`,
+                contentType:"application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    console.log(response)   // board가 필요해
+                    for (let i = 0; i < response.length; i++) {
+                        let board = response[i];
+                        let title = board['title'];
+                        let username = board['username'];
+                        let createdAt = board['createdAt'];
+                        let contents = board['contents'];
+                        addBoardHTML(title, username, createdAt, contents);
+                    }
+                }
+
+            })
+
+        }
+
+        function addBoardHTML(title, username, createdAt, contents) {
+            let tempHtml = `<div class="board">
+                                <div class="title-area">
+                                    <h3>${title}</h3>
+                                    <span>${username}</span>
+                                    <span>${createdAt}</span>
+                                </div>
+
+
+                                <div class="content-area">
+                                    <p>${contents}</p>
+                                </div>
+                            </div>`
+            $('#boards-box').append(tempHtml);
+        }
+    </script>
+</head>
+<body>
+    <div id="boards-box">
+        <div class="board">
+            <div class="title-area">
+                <h3>제목</h3>
+                <span>작성자</span>
+                <span>작성일자</span>
+            </div>
+
+
+            <div class="content-area">
+                <p>게시글 내용 블라블라</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

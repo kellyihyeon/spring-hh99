@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="테스트 페이지" content="width=device-width, initial-scale=1.0">
+    <title>글작성 페이지</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+
+    </style>
+    <script>
+        // form으로 하면 데이터가 받아지지도 않네.
+        function writeBoard() {
+            let title = $('#inputTitle').val();
+            let username = $('#inputUsername').val();
+            let contents = $('#inputContents').val();
+            // 묶어서 ? JSON으로 만들자.
+            let data = {'title':title, 'username':username, 'contents':contents};
+            // 컨트롤러에 보내자
+            $.ajax({
+                type: "POST",
+                url: "/api/boards",
+                // 내가 보내는 data는 JSON타입이야, 알겠지?
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert("글이 작성되었습니다.");
+                    window.location.href="index.html";
+                }
+
+            })
+
+
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <label for="inputTitle">제목</label>
+            <input type="text" name="title" id="inputTitle">
+        </div>
+
+        <div>
+            <label for="inputUsername">작성자명</label>
+            <input type="text" name="username" id="inputUsername">
+        </div>
+
+        <div>
+            <label for="inputContents">내용</label>
+            <textarea type="text" name="contents" id="inputContents"></textarea>
+        </div>
+
+        <div>
+            <button type="submit" onclick="writeBoard()">완료</button>
+        </div>
+
+        
+    </div>
+</div>
+</body>
+</html>

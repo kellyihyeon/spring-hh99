@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="테스트 페이지" content="width=device-width, initial-scale=1.0">
+    <title>블로그 테스트</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+
+    </style>
+    <script>
+        $(document).ready(function() {
+            showBoardList();
+        })
+
+        // 접속했을 때 전체 게시글 보여주기
+        function showBoardList(){
+            $('#list-box').empty();
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/boards',
+                success: function (response) {
+                    console.log(response)
+                    for (let i = 0; i < response.length; i++) {
+                        let list = response[i];
+                        let id = list['id'];
+                        let username = list['username'];
+                        let title = list['title'];
+                        let contents = list['contents'];
+                        let createdAt = list['createdAt'];
+                        addHTML(id, username, title, contents, createdAt);
+                    }
+                }
+
+            })
+        }
+        // HTMl 태그에 게시글 하나씩 붙여 나가는 펑션(빽틱!)
+        function addHTML(id, username, title, contents, createdAt) {
+            // contents는 시간 남으면 쓸 거야.
+            let tempHtml = `<div class="list_content">
+                                <a href="detail.html" onclick="showOneList('${id}');">
+<!--                                javascript:void(0);-->
+                                    <strong id="${id}-title">${title}</strong>
+                                </a>
+                                <div>
+                                    <p id="${id}-username">${username}</p>
+                                    <span id="${id}-time">${createdAt}</span>
+                                </div>
+                                <div>
+                                    <p id="${id}-contents">${contents}</p>
+                                </div>
+                            </div>`
+            $('#list-box').append(tempHtml);
+            // 테스트
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <li>
+        <a href="write.html" class="">글쓰기 버튼</a>
+    </li>
+
+    <div id="list-box">
+        <div class="list_content">
+            <a href="#detail.html">
+                <strong>작성글 타이틀</strong>
+            </a>
+            <div>
+                <p>작성자</p>
+                <span>작성 날짜</span>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- 상세페이지   -->
+    <div class="area_title">
+        <h3>글제목</h3>
+        <span>작성자</span>
+        <span>작성일</span>
+    </div>
+    <div class="area_view">
+        <p>글 내용</p>
+    </div>
+</body>
+
+</html>
