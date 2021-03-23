@@ -2,6 +2,7 @@ package com.sparta.myblog.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
+@ToString
 public class Board extends Timestamped{
 
     @GeneratedValue(strategy = GenerationType.AUTO)

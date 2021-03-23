@@ -35,9 +35,8 @@ public class BoardController {
         return boardRepository.findAllByOrderByCreatedAtDesc();
     }
 
-    @PostMapping("/api/boards/{id}")
-    public Long getOneBoard(@PathVariable Long id, @RequestBody BoardRequestDto boardRequestDto) {
-        boardService.readOne(id, boardRequestDto);
-        return id;
+    @GetMapping("/api/boards/{id}")
+    public Board getOneBoard(@PathVariable Long id) {
+        return boardService.readOne(id);
     }
 }

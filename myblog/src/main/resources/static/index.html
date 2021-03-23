@@ -43,8 +43,7 @@
         function addHTML(id, username, title, contents, createdAt) {
             // contents는 시간 남으면 쓸 거야.
             let tempHtml = `<div class="list_content">
-                                <a href="detail.html" onclick="showOneList('${id}');">
-<!--                                javascript:void(0);-->
+                                <a href="detail.html?id=${id}" onclick="showOneList('${id}');">
                                     <strong id="${id}-title">${title}</strong>
                                 </a>
                                 <div>
