@@ -7,10 +7,22 @@
     <title>글작성 페이지</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 
     <style>
+        .container {
+            width: 800px;
+            margin: 50px auto;
+            text-align: center;
+        }
 
+        #btn-done {
+            margin-top: 30px;
+          }
+
+        .content-area {
+            height: 150px;
+        }
     </style>
     <script>
         // form으로 하면 데이터가 받아지지도 않네.
@@ -40,27 +52,51 @@
 </head>
 <body>
     <div class="container">
-        <div>
-            <label for="inputTitle">제목</label>
-            <input type="text" name="title" id="inputTitle">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">title</span>
+            </div>
+            <input type="text" name="title" id="inputTitle" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
 
-        <div>
-            <label for="inputUsername">작성자명</label>
-            <input type="text" name="username" id="inputUsername">
+<!--        <div>-->
+<!--            <label for="inputTitle">제목</label>-->
+<!--            <input type="text" name="title" id="inputTitle">-->
+<!--        </div>-->
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">nickname</span>
+            </div>
+            <input type="text" name="username" id="inputUsername" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
 
-        <div>
-            <label for="inputContents">내용</label>
-            <textarea type="text" name="contents" id="inputContents"></textarea>
+<!--        <div>-->
+<!--            <label for="inputUsername">작성자명</label>-->
+<!--            <input type="text" name="username" id="inputUsername">-->
+<!--        </div>-->
+
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">content</span>
+            </div>
+            <textarea name="contents" id="inputContents" class="form-control content-area" aria-label="With textarea"></textarea>
         </div>
 
-        <div>
-            <button type="submit" onclick="writeBoard()">완료</button>
+<!--        <div>-->
+<!--            <label for="inputContents">내용</label>-->
+<!--            <textarea type="text" name="contents" id="inputContents"></textarea>-->
+<!--        </div>-->
+        <div id="btn-done">
+            <button type="submit" onclick="writeBoard()" class="btn btn-primary">write</button>
         </div>
 
-        
+<!--        <div>-->
+<!--            <button type="submit" onclick="writeBoard()">완료</button>-->
+<!--        </div>-->
     </div>
-</div>
+
 </body>
 </html>

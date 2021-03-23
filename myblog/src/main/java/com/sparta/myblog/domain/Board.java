@@ -39,9 +39,9 @@ public class Board extends Timestamped{
 //        this.contents = boardRequestDto.getContents();
 //    }
     // 게시글 상세 조회
-    public void readOne(BoardRequestDto boardRequestDto) {
-        this.username = boardRequestDto.getUsername();
-        this.title = boardRequestDto.getTitle();
-        this.contents = boardRequestDto.getContents();
-    }
+//    public void getOne(BoardRequestDto boardRequestDto) {
+//        this.username = boardRequestDto.getUsername();
+//        this.title = boardRequestDto.getTitle();
+//        this.contents = boardRequestDto.getContents();
+//    }
 }

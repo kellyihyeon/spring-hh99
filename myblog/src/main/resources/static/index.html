@@ -4,13 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="테스트 페이지" content="width=device-width, initial-scale=1.0">
-    <title>블로그 테스트</title>
+    <title>write here</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <style>
+        .sub-title {
+            margin-top: 15px;
+        }
 
+        .list_content {
+            width: 100%;
+            height: 100px;
+            border-bottom: 1px solid #e7e7e7;
+            /*background-color: #ffffff;*/
+            margin-bottom: 10px;
+            padding-left: 132px;
+        }
+
+        .write {
+            padding-left: 132px;
+        }
+        .write-link {
+            color: #636363;
+            font-weight: bold;
+        }
+
+        .write-link:hover {
+            color: white;
+        }
+        .count-board {
+            border-bottom: 1px solid #e7e7e7;
+            padding-left: 132px;
+            padding-bottom: 10px;
+            margin: 30px auto 20px;
+            color: #a1a1a1;
+        }
+
+        .title-edit {
+            margin-bottom: 5px;
+            font-size: 22px;
+            color: #262626;
+            font-weight: bold;
+        }
+
+        .title-edit:hover {
+            color: cornflowerblue;
+        }
+        .info-username {
+            display: inline-block;
+        }
+
+        .info-edit {
+            margin-top: 20px;
+            color: black;
+        }
     </style>
     <script>
         $(document).ready(function() {
@@ -24,10 +74,14 @@
             $.ajax({
                 type: 'GET',
                 url: '/api/boards',
-                success: function (response) {
+                success: function (response) {  //List<Board>반환
                     console.log(response)
+                    console.log("몇개? ", response.length)
+                    let count = response.length;
+                    $('#count').text(count);
                     for (let i = 0; i < response.length; i++) {
                         let list = response[i];
+
                         let id = list['id'];
                         let username = list['username'];
                         let title = list['title'];
@@ -35,24 +89,22 @@
                         let createdAt = list['createdAt'];
                         addHTML(id, username, title, contents, createdAt);
                     }
+
                 }
 
             })
         }
         // HTMl 태그에 게시글 하나씩 붙여 나가는 펑션(빽틱!)
         function addHTML(id, username, title, contents, createdAt) {
+            console.log("addHTMl펑션에 들어왔음.")
             // contents는 시간 남으면 쓸 거야.
             let tempHtml = `<div class="list_content">
-                                <a href="detail.html" onclick="showOneList('${id}');">
-<!--                                javascript:void(0);-->
+                                <a  class="title-edit" href="detail.html?id=${id}" onclick="showOneList('${id}'>
                                     <strong id="${id}-title">${title}</strong>
                                 </a>
-                                <div>
-                                    <p id="${id}-username">${username}</p>
+                                <div class="info-edit">
+                                    <p class="info-username" id="${id}-username">${username}</p>  |
                                     <span id="${id}-time">${createdAt}</span>
-                                </div>
-                                <div>
-                                    <p id="${id}-contents">${contents}</p>
                                 </div>
                             </div>`
             $('#list-box').append(tempHtml);
@@ -64,13 +116,27 @@
 </head>
 
 <body>
-    <li>
-        <a href="write.html" class="">글쓰기 버튼</a>
-    </li>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">kelly's guest book </h1>
+            <p class="lead sub-title">Hello there. Write here.</p>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active write" aria-current="page"><a href="write.html" class="write-link">write</a></li>
+        </ol>
+    </nav>
+
+    <div class="count-board">
+        <h5>전체글 (<span id="count">몇개</span>)</h5>
+    </div>
 
     <div id="list-box">
         <div class="list_content">
-            <a href="#detail.html">
+            <a href="#">
                 <strong>작성글 타이틀</strong>
             </a>
             <div>
@@ -78,23 +144,14 @@
                 <span>작성 날짜</span>
             </div>
         </div>
+    </div>
+    <br>
 
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <!-- 상세페이지   -->
-    <div class="area_title">
-        <h3>글제목</h3>
-        <span>작성자</span>
-        <span>작성일</span>
-    </div>
-    <div class="area_view">
-        <p>글 내용</p>
-    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

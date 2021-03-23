@@ -7,59 +7,72 @@
     <title>글 상세조회 페이지</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
 
     <style>
+        .board {
+            width: 800px;
+            margin: 50px auto;
+            /*컨텐츠 내용에 따라 자동 조절 되도록! */
+            overflow: hidden;
+            height: auto;
+        }
 
+        .one-title {
+            font-weight: bold;
+            font-size: 25px;
+            margin-bottom: 10px;
+            color: #424242;
+        }
+
+        .one-content {
+            font-size: 17px;
+            color: #424242;;
+
+        }
     </style>
     <script>
         $(document).ready(function() {
+            $('#boards-box').empty();
+
+            let id = window.location.search.split('=')[1];  //?id=2
+            // "?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8"
+            console.log(id);    //잘 나오고
             showOneList(id);
         })
 
-        // 제목 클릭해서 왔을 떄 상세 게시글 보여주기
         function showOneList(id){
-            // id에 맞는 데이터 뽑기
-            let title = $(`#${id}-title`).text();
-            let username = $(`#${id}-username`).text();
-            let createdAt = $(`#${id}-time`).text();
-            let contents = $(`#${id}-contents`).text();
-
-            let data = {'title': title, 'username': username, 'createdAt':createdAt, 'contents': contents};
-
-
+            // id 잘 받아왔는지 확인해보자.
+            console.log(`id: ${id}`)
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: `/api/boards/${id}`,
-                contentType:"application/json",
-                data: JSON.stringify(data),
-                success: function (response) {
+                success: function (response) { // 대기 중 -> 보드 리턴
                     console.log(response)   // board가 필요해
-                    for (let i = 0; i < response.length; i++) {
-                        let board = response[i];
-                        let title = board['title'];
-                        let username = board['username'];
-                        let createdAt = board['createdAt'];
-                        let contents = board['contents'];
-                        addBoardHTML(title, username, createdAt, contents);
-                    }
+                    let title = response.title;
+                    let username= response.username;
+                    let createdAt= response.createdAt;
+                    let contents= response.contents;
+
+                    addBoardHTML(title, username, createdAt, contents);
+
                 }
 
             })
-
         }
 
         function addBoardHTML(title, username, createdAt, contents) {
-            let tempHtml = `<div class="board">
-                                <div class="title-area">
-                                    <h3>${title}</h3>
-                                    <span>${username}</span>
-                                    <span>${createdAt}</span>
+            let tempHtml = `<div class="card board">
+                                <div class="card-header title-area">
+                                    <div class="one-title">${title}</div>
+                                    <footer class="blockquote-footer">${username} |<cite title="Source Title"> ${createdAt}</cite></footer>
                                 </div>
-
-
-                                <div class="content-area">
-                                    <p>${contents}</p>
+                                <div class="card-body">
+                                    <blockquote class="blockquote mb-0 content-area">
+                                        <p class="one-content">${contents}</p>
+<!--                                        <footer class="blockquote-footer">${username} |<cite title="Source Title"> ${createdAt}</cite></footer>-->
+                                    </blockquote>
                                 </div>
                             </div>`
             $('#boards-box').append(tempHtml);
@@ -68,19 +81,54 @@
 </head>
 <body>
     <div id="boards-box">
-        <div class="board">
-            <div class="title-area">
-                <h3>제목</h3>
-                <span>작성자</span>
-                <span>작성일자</span>
+<!--        <div class="card board">-->
+<!--            <div class="card-header title-area">-->
+<!--                ${title}-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <blockquote class="blockquote mb-0 content-area">-->
+<!--                    <p>${contents}</p>-->
+<!--                    <footer class="blockquote-footer">${username} |<cite title="Source Title">${createdAt}</cite></footer>-->
+<!--                </blockquote>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="card board">
+            <div class="card-header title-area">
+                <div class="one-title">글 제목</div>
+                <footer class="blockquote-footer">작성자명 |<cite title="Source Title">작성날짜</cite></footer>
             </div>
-
-
-            <div class="content-area">
-                <p>게시글 내용 블라블라</p>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0 content-area">
+                    <p class="one-content">
+                        작성 내용은 여기에 표기
+                        작성 내용은 여기에 표기
+                        작성 내용은 여기에 표기
+                        작성 내용은 여기에 표기
+                        작성 내용은 여기에 표기작성 내용은 여기에 표기작성 내용은 여기에 표기작성 내용은 여기에 표기
+                        작성 내용은 여기에 표기작성 내용은 여기에 표기
+                        작성 내용은 여기에 표기
+                        작성 내용은 여기에 표기
+                        작성 내용은 여기에 표기
+                        작성 내용은 여기에 표기
+                    </p>
+<!--                    <footer class="blockquote-footer">작성자명 |<cite title="Source Title">작성날짜</cite></footer>-->
+                </blockquote>
             </div>
         </div>
     </div>
+
+<!--    <div class="card board">-->
+<!--        <div class="card-header title-area">-->
+<!--            글 제목-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--            <blockquote class="blockquote mb-0 content-area">-->
+<!--                <p>작성 내용은 여기에 표기</p>-->
+<!--                <footer class="blockquote-footer">작성자명  |<cite title="Source Title">작성날짜</cite></footer>-->
+<!--            </blockquote>-->
+<!--        </div>-->
+<!--    </div>-->
 
 </body>
 </html>
