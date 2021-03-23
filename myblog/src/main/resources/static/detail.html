@@ -48,19 +48,36 @@
             $.ajax({
                 type: 'GET',
                 url: `/api/boards/${id}`,
-                success: function (response) { // 대기 중 -> 보드 리턴
-                    console.log(response)   // board가 필요해
-                    let title = response.title;
-                    let username= response.username;
-                    let createdAt= response.createdAt;
-                    let contents= response.contents;
-
-                    addBoardHTML(title, username, createdAt, contents);
-
+                success: function (resp) {
+                    addBoardHTML(
+                        resp.title,
+                        resp.username,
+                        resp.createdAt,
+                        resp.contents
+                    );
                 }
-
             })
         }
+
+        // function showOneList(id){
+        //     // id 잘 받아왔는지 확인해보자.
+        //     console.log(`id: ${id}`)
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: `/api/boards/${id}`,
+        //         success: function (response) { // 대기 중 -> 보드 리턴
+        //             console.log(response)   // board가 필요해
+        //             let title = response.title;
+        //             let username= response.username;
+        //             let createdAt= response.createdAt;
+        //             let contents= response.contents;
+        //
+        //             addBoardHTML(title, username, createdAt, contents);
+        //
+        //         }
+        //
+        //     })
+        // }
 
         function addBoardHTML(title, username, createdAt, contents) {
             let tempHtml = `<div class="card board">
@@ -71,7 +88,6 @@
                                 <div class="card-body">
                                     <blockquote class="blockquote mb-0 content-area">
                                         <p class="one-content">${contents}</p>
-<!--                                        <footer class="blockquote-footer">${username} |<cite title="Source Title"> ${createdAt}</cite></footer>-->
                                     </blockquote>
                                 </div>
                             </div>`
@@ -80,19 +96,8 @@
     </script>
 </head>
 <body>
-    <div id="boards-box">
-<!--        <div class="card board">-->
-<!--            <div class="card-header title-area">-->
-<!--                ${title}-->
-<!--            </div>-->
-<!--            <div class="card-body">-->
-<!--                <blockquote class="blockquote mb-0 content-area">-->
-<!--                    <p>${contents}</p>-->
-<!--                    <footer class="blockquote-footer">${username} |<cite title="Source Title">${createdAt}</cite></footer>-->
-<!--                </blockquote>-->
-<!--            </div>-->
-<!--        </div>-->
 
+    <div id="boards-box">
         <div class="card board">
             <div class="card-header title-area">
                 <div class="one-title">글 제목</div>
@@ -112,23 +117,11 @@
                         작성 내용은 여기에 표기
                         작성 내용은 여기에 표기
                     </p>
-<!--                    <footer class="blockquote-footer">작성자명 |<cite title="Source Title">작성날짜</cite></footer>-->
+                <!--<footer class="blockquote-footer">작성자명 |<cite title="Source Title">작성날짜</cite></footer>-->
                 </blockquote>
             </div>
         </div>
     </div>
-
-<!--    <div class="card board">-->
-<!--        <div class="card-header title-area">-->
-<!--            글 제목-->
-<!--        </div>-->
-<!--        <div class="card-body">-->
-<!--            <blockquote class="blockquote mb-0 content-area">-->
-<!--                <p>작성 내용은 여기에 표기</p>-->
-<!--                <footer class="blockquote-footer">작성자명  |<cite title="Source Title">작성날짜</cite></footer>-->
-<!--            </blockquote>-->
-<!--        </div>-->
-<!--    </div>-->
 
 </body>
 </html>

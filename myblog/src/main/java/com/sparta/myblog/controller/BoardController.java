@@ -31,15 +31,20 @@ public class BoardController {
         return boardRepository.findAllByOrderByCreatedAtDesc();
     }
 
+
 //    @PostMapping("/api/boards/{id}")    //2번 아이디
 //    public Board getOneBoard(@PathVariable Long id) {
 //        boardService.readOne(id);
 //        return id;
 //    }
 
+//    @GetMapping("/api/boards/{id}")
+//    public Board getOneBoard(@PathVariable Long id) {
+////        BoardRequestDto boardRequestDto = new BoardRequestDto();
+//        return boardService.showOne(id);
+
     @GetMapping("/api/boards/{id}")
     public Board getOneBoard(@PathVariable Long id) {
-//        BoardRequestDto boardRequestDto = new BoardRequestDto();
-        return boardService.showOne(id);
+        return boardService.readOne(id);
     }
 }

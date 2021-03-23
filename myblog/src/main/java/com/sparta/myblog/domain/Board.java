@@ -2,6 +2,7 @@ package com.sparta.myblog.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
+@ToString
 public class Board extends Timestamped{
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,17 +33,4 @@ public class Board extends Timestamped{
         this.contents = boardRequestDto.getContents();
     }
 
-//    // 게시글 상세 조회
-//    public Board(Long id, BoardRequestDto boardRequestDto) {
-//        this.id = id;
-//        this.username = boardRequestDto.getUsername();
-//        this.title = boardRequestDto.getTitle();
-//        this.contents = boardRequestDto.getContents();
-//    }
-    // 게시글 상세 조회
-//    public void getOne(BoardRequestDto boardRequestDto) {
-//        this.username = boardRequestDto.getUsername();
-//        this.title = boardRequestDto.getTitle();
-//        this.contents = boardRequestDto.getContents();
-//    }
 }
