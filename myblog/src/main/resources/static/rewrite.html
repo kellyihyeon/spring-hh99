@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="테스트 페이지" content="width=device-width, initial-scale=1.0">
+    <title>글 수정 페이지</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        .container-re {
+            width: 800px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        #btn-done {
+            margin-top: 30px;
+        }
+
+        .content-area {
+            height: 150px;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+
+            let id = window.location.search.split('=')[1];  //?id=2
+
+            console.log(id);    //잘 나오고
+            reShowOneList(id);
+        })
+
+        function reShowOneList(id){
+            // $('#container-re').empty();
+            // id 잘 받아왔는지 확인해보자.
+            console.log(`id: ${id}`)
+            $.ajax({
+                type: 'GET',
+                url: `/api/boards/${id}`,
+                success: function (resp) {
+                    $('#inputTitle-re').val(resp.title);
+                    $('#inputUsername-re').val(resp.username);
+                    $('#inputContents-re').val(resp.contents);
+
+                    reAddBoardHTML(resp.id);
+                }
+            })
+        }
+
+        function reAddBoardHTML(id) {
+            let tempHTML = `<div id="btn-done">
+                                <button type="submit" onclick="rewriteBoard(${id})" class="btn btn-primary">edit</button>
+                            </div>`
+
+            // $('#inputTitle-re').val(title);
+            // $('#inputUsername-re').val(username);
+            // $('#inputContents-re').val(contents);
+
+            $('#temp-btn').append(tempHTML);
+
+        }
+
+
+       function rewriteBoard(id) {
+            // let id = window.location.search.split("=")[1];
+            // console.log(id);
+
+            let title = $('#inputTitle-re').val();
+            let username = $('#inputUsername-re').val();
+            let contents = $('#inputContents-re').val();
+
+            let data = {'title':title, 'username':username, 'contents':contents};
+
+            $.ajax({
+                type: "PUT",
+                url: `/api/boards/${id}`,
+
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert("수정 되었습니다.");
+                    window.location.href="index.html";
+                }
+            })
+
+        }
+    </script>
+</head>
+<body>
+<div id="container-re" class="container-re">
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">title</span>
+        </div>
+        <input type="text" name="title" id="inputTitle-re" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">nickname</span>
+        </div>
+        <input type="text" name="username" id="inputUsername-re" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">content</span>
+        </div>
+        <textarea name="contents" id="inputContents-re" class="form-control content-area" aria-label="With textarea"></textarea>
+    </div>
+
+    <div id="temp-btn">
+<!--        <div id="btn-done">-->
+<!--            <button type="submit" onclick="rewriteBoard()" class="btn btn-primary">edit</button>-->
+<!--        </div>-->
+    </div>
+
+</div>
+
+</body>
+</html>

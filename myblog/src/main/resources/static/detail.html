@@ -21,7 +21,7 @@
 
         .one-title {
             font-weight: bold;
-            font-size: 25px;
+            font-size: 23px;
             margin-bottom: 10px;
             color: #424242;
         }
@@ -30,6 +30,15 @@
             font-size: 17px;
             color: #424242;;
 
+        }
+
+        .board-edit, .board-del{
+            margin-left: 5px;
+
+        }
+        .board-edit:hover, .board-del:hover{
+            cursor: pointer;
+            text-decoration: underline;
         }
     </style>
     <script>
@@ -50,6 +59,7 @@
                 url: `/api/boards/${id}`,
                 success: function (resp) {
                     addBoardHTML(
+                        resp.id,
                         resp.title,
                         resp.username,
                         resp.createdAt,
@@ -79,11 +89,31 @@
         //     })
         // }
 
-        function addBoardHTML(title, username, createdAt, contents) {
+        function delBoard(id) {
+            $.ajax({
+                type: "DELETE",
+                url: `/api/boards/${id}`,
+
+                success: function (response) {
+                    alert("삭제 되었습니다.")
+                    window.location.assign("index.html");
+                }
+            })
+        }
+
+        // function updateBoard(id) {
+        //     window.location.href("rewrite.html");
+        // }
+
+        function addBoardHTML(id, title, username, createdAt, contents) {
             let tempHtml = `<div class="card board">
                                 <div class="card-header title-area">
                                     <div class="one-title">${title}</div>
-                                    <footer class="blockquote-footer">${username} |<cite title="Source Title"> ${createdAt}</cite></footer>
+                                    <footer class="blockquote-footer">${username} &nbsp;|
+                                        <cite title="Source Title"> ${createdAt} &nbsp;| </cite>
+                                        <span id="${id}-board-edit" class="board-edit" onclick="location.href='rewrite.html?id=${id}'">수정 &nbsp;|</span>
+                                        <span id="${id}-board-del" class="board-del" onclick="delBoard(${id})">삭제</span>
+                                    </footer>
                                 </div>
                                 <div class="card-body">
                                     <blockquote class="blockquote mb-0 content-area">

@@ -7,6 +7,7 @@ import com.sparta.myblog.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 
@@ -47,4 +48,17 @@ public class BoardController {
     public Board getOneBoard(@PathVariable Long id) {
         return boardService.readOne(id);
     }
+
+    @DeleteMapping("api/boards/{id}")
+    public Long deleteOneBoard(@PathVariable Long id) {
+        boardRepository.deleteById(id);
+        return id;
+    }
+
+    @PutMapping("api/boards/{id}")
+    public Long updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto boardRequestDto) {
+        boardService.update(id, boardRequestDto);
+        return id;
+    }
+
 }

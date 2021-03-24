@@ -2,6 +2,7 @@ package com.sparta.myblog.service;
 
 import com.sparta.myblog.domain.Board;
 import com.sparta.myblog.domain.BoardRepository;
+import com.sparta.myblog.domain.BoardRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,4 +40,14 @@ public class BoardService {
         log.info("board: {}", board);
         return board;
     }
+
+    @Transactional
+    public Long update(Long id, BoardRequestDto boardRequestDto) {
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("아이디가 존재 하지 않는다. 익셉션 터짐")
+        );
+        board.update(boardRequestDto);
+        return board.getId();
+    }
+
 }
