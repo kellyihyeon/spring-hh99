@@ -1,4 +1,5 @@
 package com.sparta.springcore.service;
+
 import com.sparta.springcore.repository.ProductRepository;
 import com.sparta.springcore.dto.ProductMypriceRequestDto;
 import com.sparta.springcore.dto.ProductRequestDto;
@@ -15,6 +16,7 @@ import java.util.List;
 public class ProductService {
     // 멤버 변수 선언
     private final ProductRepository productRepository;
+    private static final int MIN_PRICE = 100;
 
     // 생성자: ProductService() 가 생성될 때 호출됨
     @Autowired
@@ -28,6 +30,7 @@ public class ProductService {
     public List<Product> getProducts(Long userId) {
         return productRepository.findAllByUserId(userId);
     }
+
 
     // 모든 상품 조회 (관리자용)
     public List<Product> getAllProducts() {
@@ -50,7 +53,11 @@ public class ProductService {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다."));
 
+        // 변경될 관심 가격이 유효한지 확인합니다.
         int myPrice = requestDto.getMyprice();
+        if (myPrice < MIN_PRICE) {
+            throw new IllegalArgumentException("유효하지 않은 관심 가격입니다. 최소 " + MIN_PRICE + " 원 이상으로 설정해 주세요.");
+        }
 
         product.updateMyPrice(myPrice);
 //        product.setMyprice(myPrice);

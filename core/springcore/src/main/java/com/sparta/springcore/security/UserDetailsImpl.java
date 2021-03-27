@@ -52,6 +52,7 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
+
     private static final String ROLE_PREFIX = "ROLE_";
 
     @Override
