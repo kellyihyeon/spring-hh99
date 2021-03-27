@@ -12,7 +12,6 @@ public class ItemDto {
     private String image;
     private int lprice;
 
-    // JSONObject 라이브러리를 가져와야 사용할 수 있다.
     public ItemDto(JSONObject itemJson) {
         this.title = itemJson.getString("title");
         this.link = itemJson.getString("link");
