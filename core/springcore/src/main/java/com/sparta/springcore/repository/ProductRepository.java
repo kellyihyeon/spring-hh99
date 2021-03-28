@@ -7,4 +7,14 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByUserId(Long userId);
+
+    // (2) 상품명이 title인 관심상품 1개 조회
+    Product findByTitle(String title);
+
+    // (3) 상품명에 word가 포함된 모든 상품들 조회
+    List<Product> findAllByTitleContaining(String word);
+
+    // (4) 최저가가 fromPrice ~ toPrice인 모든 상품들을 조회
+    List<Product> findAllByLpriceBetween(int fromPrice, int toPrice);
+
 }
