@@ -1,12 +1,17 @@
 package com.sparta.springcore.repository;
 
 import com.sparta.springcore.model.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findAllByUserId(Long userId);
+    Page<Product> findAllByUserId(Long userId, Pageable pageable);
+
+    Page<Product> findAllByUserIdAndFolderList_Id(Long userId, Long folderId, Pageable pageable);
+
 
     // (2) 상품명이 title인 관심상품 1개 조회
     Product findByTitle(String title);
