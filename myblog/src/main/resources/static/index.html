@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="테스트 페이지" content="width=device-width, initial-scale=1.0">
-    <title>write here</title>
+    <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:title" content="kelly's guest book">
+    <meta property="og:description" content="블로그에 오셔서 방명록을 남겨주세요.">
+    <meta property="og:image" content="images/og_myblog.jpg">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 
+    <title>write here</title>
     <style>
         .sub-title {
             margin-top: 15px;
@@ -27,13 +33,18 @@
         .write {
             padding-left: 132px;
         }
-        .write-link {
+        .write-link, .login-link {
             color: #636363;
             font-weight: bold;
         }
 
-        .write-link:hover {
+        .write-link:hover, .login-link:hover {
             color: white;
+        }
+
+        .login-link {
+            position: absolute;
+            right: 132px;
         }
         .count-board {
             border-bottom: 1px solid #e7e7e7;
@@ -121,12 +132,17 @@
         <div class="container">
             <h1 class="display-4">kelly's guest book </h1>
             <p class="lead sub-title">Hello there. Write here.</p>
+            <span th:text="${username}"></span> 님
         </div>
     </div>
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active write" aria-current="page"><a href="write.html" class="write-link">write</a></li>
+            <li class="breadcrumb-item active write" aria-current="page">
+                <a href="write.html" class="write-link">write</a>
+                <a href="/user/login" class="login-link">login</a>
+            </li>
+
         </ol>
     </nav>
 
