@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5 ">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Security Web</title>
+</head>
+<body>
+    <h1>home screen</h1>
+
+    <p>Here, <a th:href="@{/user}">user</a> welcome, user! </p>
+    <p>Here, <a th:href="@{/manager}">manager</a> welcome, manager! </p>
+    <p>Here, <a th:href="@{/admin}">admin</a> welcome, admin! </p>
+    <p sec:authorize="isAnonymous()">Here, <a th:href="@{/loginUser}">회원가입</a> welcome, stranger! </p>
+
+    <form form-method="post" th:action="@{/logout}">
+        <button sec:authorize="isAuthenticated()" type="submit">Logout</button>
+        <button sec:authorize="isAnonymous()" th:href="@{/login}" type="submit">Login</button>
+    </form>
+
+<!--    <p sec:authorize="isAnonymous()">Here, <a th:href="@{/login}">로그인</a> welcome, login ! </p>-->
+<!--    <p sec:authorize="isAuthenticated()">Here, <a th:href="@{/logout}">로그아웃</a> logout... </p>-->
+    <!-- isAuthenticated() 로그인한 사용자에게만 보인다
+         isAnonymous() 로그인하지 않은 사용자에게만 보인다 -->
+</body>
+</html>
