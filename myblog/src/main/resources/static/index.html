@@ -34,19 +34,15 @@
         .write {
             padding-left: 132px;
         }
-        .write-link, .login-link {
+        .write-link{
             color: #636363;
             font-weight: bold;
         }
 
-        .write-link:hover, .login-link:hover {
+        .write-link:hover{
             color: white;
         }
 
-        .login-link {
-            position: absolute;
-            right: 132px;
-        }
         .count-board {
             border-bottom: 1px solid #e7e7e7;
             padding-left: 132px;
@@ -73,6 +69,16 @@
             margin-top: 20px;
             color: black;
         }
+
+        .custom-user-btn {
+            background-color: #8c9faf;
+            color: white;
+            border: 1px solid black;
+        }
+
+        /*.board-container {*/
+        /*    -webkit-text-size-adjust: auto;*/
+        /*}*/
     </style>
     <script>
         $(document).ready(function() {
@@ -139,11 +145,11 @@
             <p class="lead sub-title">Hello there. Write here.</p>
 
             <form method="post" th:action="@{/logout}">
-                <button sec:authorize="isAuthenticated()" type="submit">Logout</button>
+                <button sec:authorize="isAuthenticated()" type="submit" class="custom-user-btn">Logout</button>
             </form>
 
             <form method="post" th:action="@{/user/login}">
-                <button sec:authorize="isAnonymous()" type="submit">Login</button>
+                <button sec:authorize="isAnonymous()" type="submit" class="custom-user-btn">Login</button>
             </form>
         </div>
     </div>
@@ -158,22 +164,24 @@
         </ol>
     </nav>
 
-    <div class="count-board">
-        <h5>전체글 (<span id="count">몇개</span>)</h5>
-    </div>
-
-    <div id="list-box">
-        <div class="list_content">
-            <a href="#">
-                <strong>작성글 타이틀</strong>
-            </a>
-            <div>
-                <p>작성자</p>
-                <span>작성 날짜</span>
-            </div>
+    <div class="board-container">
+        <div class="count-board">
+            <h5>전체글 (<span id="count"></span>)</h5>
         </div>
+
+        <div id="list-box">
+    <!--        <div class="list_content">-->
+    <!--            <a href="#">-->
+    <!--                <strong>작성글 타이틀</strong>-->
+    <!--            </a>-->
+    <!--            <div>-->
+    <!--                <p>작성자</p>-->
+    <!--                <span>작성 날짜</span>-->
+    <!--            </div>-->
+    <!--        </div>-->
+        </div>
+        <br>
     </div>
-    <br>
 
 
 
