@@ -33,7 +33,7 @@ public class ProductRestController {
 
     // mypirce 설정
     @PutMapping("/api/products/{id}")       // id가 왜 필요한데
-    public Long setMyprice(@PathVariable  Long id, @RequestBody ProductMypriceRequestDto requestDto){
+    public Long setMyprice(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) {
         return productService.update(id, requestDto);
         // 결론적으로 product의 myprice를 설정하기 위한 작업
 

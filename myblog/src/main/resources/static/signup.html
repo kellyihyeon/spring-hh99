@@ -140,7 +140,7 @@
 <div id="login-form">
     <div id="login-title">Sign up</div>
 
-    <form action="/user/signup" method="post">
+    <form th:action="@{/user/signup}" method="post">
         <div class="signup-label">Username</div>
         <input id="username" type="text" name="username" placeholder="Username" class="signup-input-box" onchange="check_username()">
 <!--        <button id="double-check" onclick="duplication_check()">중복확인</button>-->
@@ -151,7 +151,7 @@
         <div id="passwordHelp1"></div>
 
         <div class="signup-label">Confirm Password </div>
-        <input id="userPassword2" type="password" name="password" placeholder="Confirm Password" class="signup-input-box" onchange="check_pw()">
+        <input id="userPassword2" type="password" name="password2" placeholder="Confirm Password" class="signup-input-box" onchange="check_pw()">
         <div id="passwordHelp2"></div>
 
         <button class="signup-btn">Sign Up</button>

@@ -96,7 +96,7 @@
 
                 success: function (response) {
                     alert("삭제 되었습니다.")
-                    window.location.assign("index.html");
+                    window.location.assign("/");
                 }
             })
         }
@@ -121,7 +121,10 @@
                                     </blockquote>
                                 </div>
                             </div>`
-            $('#boards-box').append(tempHtml);
+            if(id != null){
+
+                $('#boards-box').append(tempHtml);
+            }
         }
     </script>
 </head>

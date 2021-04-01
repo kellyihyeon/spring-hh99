@@ -25,7 +25,7 @@ public class Scheduler {
         System.out.println("가격 업데이트 실행");
         // 저장된 모든 관심상품을 조회합니다.
         List<Product> productList = productRepository.findAll();
-        for (int i=0; i<productList.size(); i++) {
+        for (int i = 0; i < productList.size(); i++) {
             // 1초에 한 상품 씩 조회합니다 (Naver 제한)
             TimeUnit.SECONDS.sleep(1);
             // i 번째 관심 상품을 꺼냅니다.

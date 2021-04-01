@@ -47,7 +47,7 @@ function execSearch() {
      * 검색결과 목록: #search-result-box
      * 검색결과 HTML 만드는 함수: addHTML
      */
-    // 1. 검색창의 입력값을 가져온다.
+        // 1. 검색창의 입력값을 가져온다.
     let query = $('#query').val();
     // 2. 검색창 입력값을 검사하고, 입력하지 않았을 경우 focus.
     if (query == '') {

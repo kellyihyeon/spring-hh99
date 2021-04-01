@@ -15,6 +15,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 
+    private static final String ROLE_PREFIX = "ROLE_";
+
     public UserDetailsImpl(User user) {
         this.user = user;
     }
@@ -54,11 +56,10 @@ public class UserDetailsImpl implements UserDetails {
     }
 
 
-    private static final String ROLE_PREFIX = "ROLE_";
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {    // 인가를 해주는 부분(관리자 할 때 필요)
-        // 필요 없는데..?
+
         UserRole userRole = user.getRole();
 
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + userRole.toString());

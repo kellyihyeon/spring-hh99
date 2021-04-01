@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<!--    <link rel="stylesheet" type="text/css" href="/static/css/style.css">-->
 
     <title>write here</title>
     <style>
@@ -98,6 +99,10 @@
                         let title = list['title'];
                         let contents = list['contents'];
                         let createdAt = list['createdAt'];
+                        //
+                        // if(id != null){
+                        //
+                        // }
                         addHTML(id, username, title, contents, createdAt);
                     }
 
@@ -110,7 +115,7 @@
             console.log("addHTMl펑션에 들어왔음.")
             // contents는 시간 남으면 쓸 거야.
             let tempHtml = `<div class="list_content">
-                                <a  class="title-edit" href="detail.html?id=${id}" onclick="showOneList('${id}'>
+                                <a class="title-edit" href="detail.html?id=${id}">
                                     <strong id="${id}-title">${title}</strong>
                                 </a>
                                 <div class="info-edit">
@@ -132,7 +137,14 @@
         <div class="container">
             <h1 class="display-4">kelly's guest book </h1>
             <p class="lead sub-title">Hello there. Write here.</p>
-            <span th:text="${username}"></span> 님
+
+            <form method="post" th:action="@{/logout}">
+                <button sec:authorize="isAuthenticated()" type="submit">Logout</button>
+            </form>
+
+            <form method="post" th:action="@{/user/login}">
+                <button sec:authorize="isAnonymous()" type="submit">Login</button>
+            </form>
         </div>
     </div>
 
@@ -140,7 +152,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active write" aria-current="page">
                 <a href="write.html" class="write-link">write</a>
-                <a href="/user/login" class="login-link">login</a>
+<!--                <a href="/user/login" class="login-link">login</a>-->
             </li>
 
         </ol>

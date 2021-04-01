@@ -1,7 +1,6 @@
 package com.sparta.week01_assignment.controller;
 
 
-
 import com.sparta.week01_assignment.domain.Person;
 import com.sparta.week01_assignment.domain.PersonRepository;
 import com.sparta.week01_assignment.domain.PersonRequestDto;
@@ -43,7 +42,6 @@ public class PersonController {
         return id;
     }
 }
-
 
 
 //    @GetMapping("myinfo")

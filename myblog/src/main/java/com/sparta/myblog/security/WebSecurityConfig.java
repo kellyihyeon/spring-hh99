@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true)      // 체크
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -22,34 +22,38 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+
+        http
+                .authorizeRequests()
+//                    .antMatchers("/images/**").permitAll()
+//                    .antMatchers("/css/**").permitAll()
+                    .antMatchers("/").permitAll()
+                    .antMatchers("resources/**").permitAll()
+                    .antMatchers("/h2-console/**").permitAll()
+                    .antMatchers("/user/**").permitAll()
+
+    //                .antMatchers("/**").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                .formLogin()
+                    .loginPage("/user/login")
+                    .loginProcessingUrl("/user/login")
+//                    .defaultSuccessUrl("/member")     // 유저 정보 가져오게 루트 바꿀 것.
+                    .permitAll()
+                    .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .and()
+                .exceptionHandling()
+                .accessDeniedPage("/user/forbidden")
+                .and()
+                .csrf().disable();
+
         http.headers().frameOptions().disable();
 
-        http.authorizeRequests()
-
-                .antMatchers("/images/**").permitAll()
-
-                .antMatchers("/css/**").permitAll()
-
-                .antMatchers("/user/**").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
-
-
-                .anyRequest().authenticated()
-                .and()
-
-                .formLogin()
-                .loginPage("/user/login")
-                .loginProcessingUrl("/user/login")
-                .defaultSuccessUrl("/")
-                .permitAll()
-                .and()
-                .logout()
-                .logoutUrl("/user/logout")
-                .permitAll()
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/user/forbidden");
     }
 
     @Bean
